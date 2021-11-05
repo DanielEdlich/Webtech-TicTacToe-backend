@@ -1,11 +1,11 @@
 package htw.berlin.webtech.ticktacktoe.api;
 
-public class UserCreateRequest {
+public class UserManipulationRequest {
 
     private String name;
     private int highscore;
 
-    public UserCreateRequest(String name, int highscore) {
+    public UserManipulationRequest(String name, int highscore) {
         this.name = name;
         this.highscore = highscore;
     }
