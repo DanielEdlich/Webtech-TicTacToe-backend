@@ -26,8 +26,7 @@ public class GameEntity {
     protected GameEntity() {
     }
 
-    public GameEntity(long id, long player1_id, long player2_id, boolean finished, String grid) {
-        this.id = id;
+    public GameEntity(long player1_id, long player2_id, boolean finished, String grid) {
         this.player1_id = player1_id;
         this.player2_id = player2_id;
         this.finished = finished;
