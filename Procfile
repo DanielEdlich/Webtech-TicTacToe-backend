@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/ticktacktoe -0.0.1-SNAPSHOT
+web: java -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/ticktacktoe -0.0.1-SNAPSHOT.jar
