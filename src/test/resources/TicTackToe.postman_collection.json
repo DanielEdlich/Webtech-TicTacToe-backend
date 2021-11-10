@@ -1,0 +1,242 @@
+{
+	"info": {
+		"_postman_id": "0b97e204-5eec-476c-95e3-a15391cbe615",
+		"name": "WebTech TicTackToe",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "createGame",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"player1_id\" : 1,\r\n    \"player2_id\" : 2,\r\n    \"isFinished\" : false,\r\n    \"grid\" : \"---------\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{hostUrl}}/api/v1/games",
+					"host": [
+						"{{hostUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"games"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getGames",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hostUrl}}/api/v1/games",
+					"host": [
+						"{{hostUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"games"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getGamebyID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hostUrl}}/api/v1/games/3",
+					"host": [
+						"{{hostUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"games",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateGame",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"player1_id\" : 1,\r\n    \"player2_id\" : 2,\r\n    \"isFinished\" : true,\r\n    \"grid\" : \"xxxo-oo--\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{hostUrl}}/api/v1/games/3",
+					"host": [
+						"{{hostUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"games",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteGame",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{hostUrl}}/api/v1/games/1",
+					"host": [
+						"{{hostUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"games",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUsers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hostUrl}}/api/v1/users",
+					"host": [
+						"{{hostUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUsersByID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{hostUrl}}/api/v1/users/2",
+					"host": [
+						"{{hostUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 2,\r\n    \"name\": \"Max\",\r\n    \"highscore\": 1500\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{hostUrl}}/api/v1/users/",
+					"host": [
+						"{{hostUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateUser",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"David\",\r\n    \"highscore\": 500\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{hostUrl}}/api/v1/users/1",
+					"host": [
+						"{{hostUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteUser",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{hostUrl}}/api/v1/users/2",
+					"host": [
+						"{{hostUrl}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
