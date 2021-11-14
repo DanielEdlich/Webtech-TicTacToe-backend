@@ -10,18 +10,26 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static htw.berlin.webtech.ticktacktoe.service.UserService.transformUserEntity;
+
 @Service
 public class GameService {
 
     @Autowired
     GameRepository repo;
+    @Autowired
+    UserService userService;
 
-    private Game transformEntity(GameEntity entity){
+    private Game transformGameEntity(GameEntity entity){
         return new Game(
                 entity.getId(),
-                entity.getPlayer1_id(),
-                entity.getPlayer2_id(),
-                entity.getIsFinished(),
+                // Return full User object
+                transformUserEntity(entity.getPlayer1()),
+                transformUserEntity(entity.getPlayer2()),
+//                alternative
+//                new User(entity.getPlayer1_id().getId(),entity.getPlayer1_id().getName(),entity.getPlayer1_id().getHighscore()),
+//                new User(entity.getPlayer2_id().getId(),entity.getPlayer2_id().getName(),entity.getPlayer2_id().getHighscore()),
+                entity.IsFinished(),
                 entity.getGrid()
         );
     }
@@ -29,22 +37,23 @@ public class GameService {
     public List<Game> findAll(){
         List<GameEntity> gameEntities = repo.findAll();
         return gameEntities.stream()
-                .map(this::transformEntity)
+                .map(this::transformGameEntity)
                 .collect(Collectors.toList());
 
     }
 
     public Game create(GameManipulationRequest request) {
-        var gameEntity = new GameEntity(request.getPlayer1_id(), request.getPlayer2_id(), request.isFinished(), request.getGrid());
+        var gameEntity = new GameEntity((userService.findEntityById(request.getPlayer1_id())), userService.findEntityById(request.getPlayer2_id()), request.isFinished(), request.getGrid());
         gameEntity = repo.save(gameEntity);
-        return transformEntity(gameEntity);
+        return transformGameEntity(gameEntity);
     }
 
     public Game findById(Long id){
+//        alternative
 //        var gameEntity = repo.findById(id);
 //        return gameEntity.isPresent()? transformEntity(gameEntity.get()): null;
 
-        return repo.findById(id).map(this::transformEntity).orElse(null);
+        return repo.findById(id).map(this::transformGameEntity).orElse(null);
     }
 
     public Game update(Long id, GameManipulationRequest request) {
@@ -54,12 +63,13 @@ public class GameService {
         }
         else {
             var gameEntity = optionaleEntity.get();
-            gameEntity.setPlayer1_id(request.getPlayer1_id());
-            gameEntity.setPlayer2_id(request.getPlayer2_id());
-            gameEntity.setIsFinished(request.isFinished());
+            gameEntity.setPlayer1(userService.findEntityById(request.getPlayer1_id()));
+            gameEntity.setPlayer2(userService.findEntityById(request.getPlayer2_id()));
+            gameEntity.setFinished(request.isFinished());
             gameEntity.setGrid(request.getGrid());
 
-            return transformEntity(repo.save(gameEntity));
+            var x =repo.save(gameEntity);
+            return transformGameEntity(x);
         }
     }
 

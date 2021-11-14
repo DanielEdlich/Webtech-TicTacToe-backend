@@ -21,23 +21,24 @@ public class UserService {
     public List<User> findAll(){
         List<UserEntity> users = userRepository.findAll();
         return users.stream()
-                .map(userEntity -> new User(
-                        userEntity.getId(),
-                        userEntity.getName(),
-                        userEntity.getHighscore()
-                ))
+                .map(UserService::transformUserEntity)
                 .collect(Collectors.toList());
     }
 
     public User findById(Long id){
         var userEntity = userRepository.findById(id);
-        return userEntity.isPresent()? transformEntity(userEntity.get()) : null;
+        return userEntity.isPresent()? transformUserEntity(userEntity.get()) : null;
+    }
+
+    public UserEntity findEntityById(Long id){
+        var userEntity = userRepository.findById(id);
+        return userEntity.orElse(null);
     }
 
     public User create(UserManipulationRequest request){
         var userEntity = new UserEntity(request.getName(), request.getHighscore());
         userEntity = userRepository.save(userEntity);
-        return transformEntity(userEntity);
+        return transformUserEntity(userEntity);
     }
 
     public User update(Long id, UserManipulationRequest request){
@@ -48,7 +49,7 @@ public class UserService {
         userEntity.setName(request.getName());
         userEntity.setHighscore(request.getHighscore());
         userEntity = userRepository.save(userEntity);
-        return transformEntity(userEntity);
+        return transformUserEntity(userEntity);
     }
 
     public boolean deleteById(long id){
@@ -59,7 +60,7 @@ public class UserService {
         return true;
     }
 
-    private User transformEntity(UserEntity userEntity){
+    static User transformUserEntity(UserEntity userEntity){
         return new User(
                 userEntity.getId(),
                 userEntity.getName(),
