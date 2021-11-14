@@ -1,9 +1,10 @@
 package htw.berlin.webtech.ticktacktoe.controllers;
 
-import htw.berlin.webtech.ticktacktoe.api.Game;
 import htw.berlin.webtech.ticktacktoe.api.GameManipulationRequest;
+import htw.berlin.webtech.ticktacktoe.response.GameResponseHandler;
 import htw.berlin.webtech.ticktacktoe.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,14 +19,14 @@ public class GameRestController {
     GameService service;
 
     @GetMapping(path = "/api/v1/games")
-    public ResponseEntity<List<Game>> fetchGames(){
-        return ResponseEntity.ok(service.findAll());
+    public ResponseEntity<List<Object>> fetchGames(){
+        return GameResponseHandler.generateGameListResponse(HttpStatus.OK, service.findAll());
     }
 
     @GetMapping(path = "/api/v1/games/{id}")
-    public ResponseEntity<Game> fetchGameById(@PathVariable Long id){
+    public ResponseEntity<Object> fetchGameById(@PathVariable Long id){
         var game = service.findById(id);
-        return game != null? ResponseEntity.ok(game): ResponseEntity.notFound().build();
+        return game != null? GameResponseHandler.generateGameResponse(HttpStatus.OK, game) : ResponseEntity.notFound().build();
     }
 
     @PostMapping(path = "/api/v1/games")
@@ -36,9 +37,9 @@ public class GameRestController {
     }
 
     @PutMapping(path = "/api/v1/games/{id}")
-    public ResponseEntity<Game> updateGame(@PathVariable Long id, @RequestBody GameManipulationRequest request){
+    public ResponseEntity<Object> updateGame(@PathVariable Long id, @RequestBody GameManipulationRequest request){
         var game = service.update(id, request);
-        return game != null? ResponseEntity.ok(game): ResponseEntity.notFound().build();
+        return game != null? GameResponseHandler.generateGameResponse(HttpStatus.OK, game): ResponseEntity.notFound().build();
     }
 
     @DeleteMapping(path = "/api/v1/games/{id}")
