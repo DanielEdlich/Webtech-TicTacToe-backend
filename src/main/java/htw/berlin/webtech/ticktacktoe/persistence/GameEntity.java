@@ -9,7 +9,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity(name = "game_rel")
+@Entity(name = "game")
 public class GameEntity {
 
     @Id
