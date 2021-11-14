@@ -3,12 +3,12 @@ package htw.berlin.webtech.ticktacktoe.api;
 public class Game {
 
     private long id;
-    private long player1_id;
-    private long player2_id;
+    private User player1_id;
+    private User player2_id;
     private boolean isFinished;
     private String grid;
 
-    public Game(long id, long player1_id, long player2_id, boolean isFinished, String grid) {
+    public Game(long id, User player1_id, User player2_id, boolean isFinished, String grid) {
         this.id = id;
         this.player1_id = player1_id;
         this.player2_id = player2_id;
@@ -24,19 +24,19 @@ public class Game {
         this.id = id;
     }
 
-    public long getPlayer1_id() {
+    public User getPlayer1_id() {
         return player1_id;
     }
 
-    public void setPlayer1_id(long player1) {
+    public void setPlayer1_id(User player1) {
         this.player1_id = player1;
     }
 
-    public long getPlayer2_id() {
+    public User getPlayer2_id() {
         return player2_id;
     }
 
-    public void setPlayer2_id(long player2) {
+    public void setPlayer2_id(User player2) {
         this.player2_id = player2;
     }
 
