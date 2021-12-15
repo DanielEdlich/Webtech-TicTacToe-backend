@@ -10,6 +10,8 @@ public class UserManipulationRequest {
         this.highscore = highscore;
     }
 
+    public UserManipulationRequest() {}
+
     public String getName() {
         return name;
     }

@@ -14,6 +14,8 @@ public class GameManipulationRequest {
         this.grid = grid;
     }
 
+    public GameManipulationRequest() {}
+
     public long getPlayer1_id() {
         return player1_id;
     }

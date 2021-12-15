@@ -11,7 +11,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry){
-        registry.addMapping("/**")
+        registry.addMapping("/api/**")
                 .allowedMethods("*")
                 .allowedOrigins("http://localhost:3000",
                         "https://webtech-tictactoe-frontend.herokuapp.com");
