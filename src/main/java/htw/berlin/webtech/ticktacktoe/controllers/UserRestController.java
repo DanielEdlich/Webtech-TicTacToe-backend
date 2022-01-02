@@ -2,10 +2,13 @@ package htw.berlin.webtech.ticktacktoe.controllers;
 
 import htw.berlin.webtech.ticktacktoe.api.User;
 import htw.berlin.webtech.ticktacktoe.api.UserManipulationRequest;
+import htw.berlin.webtech.ticktacktoe.response.MessageResponse;
 import htw.berlin.webtech.ticktacktoe.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;

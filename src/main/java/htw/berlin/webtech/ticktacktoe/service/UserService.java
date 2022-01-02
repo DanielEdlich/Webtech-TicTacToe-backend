@@ -4,13 +4,22 @@ import htw.berlin.webtech.ticktacktoe.api.User;
 import htw.berlin.webtech.ticktacktoe.api.UserManipulationRequest;
 import htw.berlin.webtech.ticktacktoe.persistence.UserEntity;
 import htw.berlin.webtech.ticktacktoe.persistence.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.MessageDigest;
+import java.security.MessageDigestSpi;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class UserService {
+
+/*    @Autowired
+    PasswordEncoder encoder;*/
 
     private final UserRepository userRepository;
 
@@ -35,8 +44,18 @@ public class UserService {
         return userEntity.orElse(null);
     }
 
+    public boolean checkUsername(UserManipulationRequest request){
+        return userRepository.existsByName(request.getName());
+    }
+
+    public User findByUsername(String username){
+        var userEntity = userRepository.findByName(username);
+
+        return userEntity.isEmpty() ? null : transformUserEntity(userEntity.get());
+    }
+
     public User create(UserManipulationRequest request){
-        var userEntity = new UserEntity(request.getName(), request.getHighscore());
+        var userEntity = new UserEntity(request.getName(), request.getHighscore(), encryptPassword(request.getPassword()));
         userEntity = userRepository.save(userEntity);
         return transformUserEntity(userEntity);
     }
@@ -64,7 +83,25 @@ public class UserService {
         return new User(
                 userEntity.getId(),
                 userEntity.getName(),
-                userEntity.getHighscore()
+                userEntity.getHighscore(),
+                userEntity.getPassword()
         );
     }
+
+    public boolean comparePassword(String encodedPassword, String password) {
+
+        return encodedPassword.equals(encryptPassword(password));
+//       return encoder.matches(password, encodedPassword);
+    }
+
+    private String encryptPassword(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            return Arrays.toString(digest.digest(password.getBytes()));
+        } catch (NoSuchAlgorithmException e) {
+            return null;
+        }
+    }
+
+
 }
