@@ -1,4 +1,3 @@
-/*
 package htw.berlin.webtech.ticktacktoe.controllers;
 
 import htw.berlin.webtech.ticktacktoe.api.Game;
@@ -33,21 +32,20 @@ class GameRestControllerTest {
     private GameService service;
 
     @Test
-    @Disabled
     @DisplayName("fetchGames test.")
     public void fetchGames() throws Exception {
         List<Game> gameList = List.of(
             new Game(
                 1L,
-                new User(1,"Max", 100),
-                new User(2,"David", 0),
+                new User(1,"Max", 100,"abcd"),
+                new User(2,"David", 0,"abcd"),
                 false,
                 "---------"
                 ),
             new Game(
                     2L,
-                    new User(1,"Max", 100),
-                    new User(3,"Moritz", 1000),
+                    new User(1,"Max", 100, "abcd"),
+                    new User(3,"Moritz", 0, "abcd"),
                     true,
                     "xxx------"
                 )
@@ -74,8 +72,8 @@ class GameRestControllerTest {
 
         Game game1 = new Game(
                 id,
-                new User(1,"Max", 100),
-                new User(2,"David", 0),
+                new User(1,"Max", 100, "abcd"),
+                new User(3,"Moritz", 0, "abcd"),
                 false,
                 "---------"
         );
@@ -95,8 +93,8 @@ class GameRestControllerTest {
     @DisplayName("createGame test.")
     @Disabled
     void createGame() throws Exception {
-        User max = new User(1,"Max", 100);
-        User david = new User(2,"David", 0);
+        User max = new User(1,"Max", 100, "abcd");
+        User david = new User(2,"David", 0, "abcd");
 
         GameManipulationRequest request = new GameManipulationRequest(
             max.getId(),
@@ -117,4 +115,4 @@ class GameRestControllerTest {
                 .andExpect(content().string(containsString(expected)));
     }
 
-}*/
+}
