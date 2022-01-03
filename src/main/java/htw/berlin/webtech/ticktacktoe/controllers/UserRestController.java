@@ -38,10 +38,13 @@ public class UserRestController {
     }
 
     @PostMapping (path = "/api/v1/users")
-    public ResponseEntity<Void> createUser(@RequestBody UserManipulationRequest request) throws URISyntaxException {
+    public ResponseEntity<Void> createUser(@RequestBody @Valid UserManipulationRequest request) throws URISyntaxException {
+
         var user = userService.create(request);
         URI uri = new URI("/api/v1/users/" + user.getId());
-                return ResponseEntity.created(uri).build();
+        return ResponseEntity.created(uri).build();
+
+
     }
 
     @PutMapping (path = "/api/v1/users/{id}")

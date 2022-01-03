@@ -1,10 +1,13 @@
 package htw.berlin.webtech.ticktacktoe.api;
 
+import javax.validation.constraints.Size;
+
 public class GameManipulationRequest {
 
     private long player1_id;
     private long player2_id;
     private boolean isFinished;
+    @Size(min = 9, max = 9, message= "Please provide a Grid with 9 characters.")
     private String grid;
 
     public GameManipulationRequest(long player1_id, long player2_id, boolean isFinished, String grid) {

@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -30,7 +31,7 @@ public class GameRestController {
     }
 
     @PostMapping(path = "/api/v1/games")
-    public ResponseEntity<Void> createGame(@RequestBody GameManipulationRequest request) throws URISyntaxException {
+    public ResponseEntity<Void> createGame(@RequestBody @Valid GameManipulationRequest request) throws URISyntaxException {
         var game = service.create(request);
         URI uri = new URI("/api/v1/games/" + game.getId());
         return ResponseEntity.created(uri).build();
