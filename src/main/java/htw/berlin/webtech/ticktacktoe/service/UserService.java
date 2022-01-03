@@ -102,6 +102,9 @@ public class UserService {
             return null;
         }
     }
-
+    // created for testing
+    public User transformUserEntityPublic(UserEntity userEntity) {
+        return transformUserEntity(userEntity);
+    }
 
 }

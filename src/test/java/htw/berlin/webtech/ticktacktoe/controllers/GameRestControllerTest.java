@@ -16,6 +16,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -64,6 +66,7 @@ class GameRestControllerTest {
                 .andExpect(content().string(containsString(expected)));
     }
 
+
     @Test
     @DisplayName("fetchGameBxId test.")
     public void fetchGameById() throws Exception {
@@ -73,7 +76,7 @@ class GameRestControllerTest {
         Game game1 = new Game(
                 id,
                 new User(1,"Max", 100, "abcd"),
-                new User(3,"Moritz", 0, "abcd"),
+                new User(2,"Moritz", 0, "abcd"),
                 false,
                 "---------"
         );
@@ -87,6 +90,18 @@ class GameRestControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().string(containsString(expected)));
 
+    }
+
+    @Test
+    @DisplayName("should return 404 if game is not found")
+    void gameNotFoundTest() throws Exception {
+        // given
+        doReturn(null).when(service).findById(anyLong());
+
+        // when
+        mock.perform(get("/api/v1/games/200"))
+                // then
+                .andExpect(status().isNotFound());
     }
 
     @Test
@@ -114,5 +129,7 @@ class GameRestControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().string(containsString(expected)));
     }
+
+
 
 }
