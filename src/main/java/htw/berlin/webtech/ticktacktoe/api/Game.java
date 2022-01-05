@@ -16,6 +16,13 @@ public class Game {
         this.grid = grid;
     }
 
+    public Game(long id, User player1_id, boolean isFinished, String grid) {
+        this.id = id;
+        this.player1_id = player1_id;
+        this.isFinished = isFinished;
+        this.grid = grid;
+    }
+
     public long getId() {
         return id;
     }

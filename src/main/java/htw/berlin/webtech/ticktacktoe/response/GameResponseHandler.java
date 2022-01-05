@@ -13,7 +13,9 @@ public class GameResponseHandler {
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("id", game.getId());
         map.put("player_1_id", game.getPlayer1_id().getId());
-        map.put("player_2_id", game.getPlayer2_id().getId());
+        if (game.getPlayer2_id() != null) {
+            map.put("player_2_id", game.getPlayer2_id().getId());
+        }
         map.put("isFinished", game.getIsFinished());
         map.put("grid", game.getGrid());
         return new ResponseEntity<>(map, status);
@@ -26,7 +28,7 @@ public class GameResponseHandler {
                     Map<String, Object> map = new LinkedHashMap<>();
                     map.put("id", g.getId());
                     map.put("player_1_id", g.getPlayer1_id().getId());
-                    map.put("player_2_id", g.getPlayer2_id().getId());
+                    if (g.getPlayer2_id() != null) {map.put("player_2_id", g.getPlayer2_id().getId());}
                     map.put("isFinished", g.getIsFinished());
                     map.put("grid", g.getGrid());
                             return map;

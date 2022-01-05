@@ -20,6 +20,12 @@ public class GameManipulationRequest {
         this.grid = grid;
     }
 
+    public GameManipulationRequest(long player1_id, boolean isFinished, String grid) {
+        this.player1_id = player1_id;
+        this.isFinished = isFinished;
+        this.grid = grid;
+    }
+
     public GameManipulationRequest() {}
 
     public long getPlayer1_id() {

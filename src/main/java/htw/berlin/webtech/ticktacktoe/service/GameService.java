@@ -21,17 +21,27 @@ public class GameService {
     UserService userService;
 
     private Game transformGameEntity(GameEntity entity){
-        return new Game(
-                entity.getId(),
-                // Return full User object
-                transformUserEntity(entity.getPlayer1()),
-                transformUserEntity(entity.getPlayer2()),
+        if (entity.getPlayer2() == null){
+            return new Game(
+                    entity.getId(),
+                    transformUserEntity(entity.getPlayer1()),
+                    entity.IsFinished(),
+                    entity.getGrid()
+            );
+        }
+        else {
+            return new Game(
+                    entity.getId(),
+                    // Return full User object
+                    transformUserEntity(entity.getPlayer1()),
+                    transformUserEntity(entity.getPlayer2()),
 //                alternative
 //                new User(entity.getPlayer1_id().getId(),entity.getPlayer1_id().getName(),entity.getPlayer1_id().getHighscore()),
 //                new User(entity.getPlayer2_id().getId(),entity.getPlayer2_id().getName(),entity.getPlayer2_id().getHighscore()),
-                entity.IsFinished(),
-                entity.getGrid()
-        );
+                    entity.IsFinished(),
+                    entity.getGrid()
+            );
+        }
     }
 
     public List<Game> findAll(){
@@ -43,7 +53,20 @@ public class GameService {
     }
 
     public Game create(GameManipulationRequest request) {
-        var gameEntity = new GameEntity((userService.findEntityById(request.getPlayer1_id())), userService.findEntityById(request.getPlayer2_id()), request.isFinished(), request.getGrid());
+        GameEntity gameEntity;
+        if (request.getPlayer2_id() == 0) {
+            gameEntity = new GameEntity(
+                    userService.findEntityById(request.getPlayer1_id()),
+                    request.isFinished(),
+                    request.getGrid());
+        }
+        else {
+            gameEntity = new GameEntity(
+                    userService.findEntityById(request.getPlayer1_id()),
+                    userService.findEntityById(request.getPlayer2_id()),
+                    request.isFinished(),
+                    request.getGrid());
+        }
         gameEntity = repo.save(gameEntity);
         return transformGameEntity(gameEntity);
     }
@@ -64,12 +87,14 @@ public class GameService {
         else {
             var gameEntity = optionaleEntity.get();
             gameEntity.setPlayer1(userService.findEntityById(request.getPlayer1_id()));
-            gameEntity.setPlayer2(userService.findEntityById(request.getPlayer2_id()));
+            if (request.getPlayer2_id() != 0) {
+                gameEntity.setPlayer2(userService.findEntityById(request.getPlayer2_id()));
+            }
             gameEntity.setFinished(request.isFinished());
             gameEntity.setGrid(request.getGrid());
 
-            var x =repo.save(gameEntity);
-            return transformGameEntity(x);
+            var changedGameEntity =repo.save(gameEntity);
+            return transformGameEntity(changedGameEntity);
         }
     }
 

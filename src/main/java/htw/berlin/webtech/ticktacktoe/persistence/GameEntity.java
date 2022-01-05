@@ -54,6 +54,14 @@ public class GameEntity {
         fetchPlayer2_id(this.player2);
     }
 
+    public GameEntity(UserEntity player1, boolean finished, String grid) {
+        this.player1 = player1;
+        this.finished = finished;
+        this.grid = grid;
+
+        fetchPlayer1_id(this.player1);
+    }
+
     public long getId() {
         return id;
     }
