@@ -1,11 +1,14 @@
 package htw.berlin.webtech.ticktacktoe.api;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.Size;
 
 public class GameManipulationRequest {
 
     private long player1_id;
     private long player2_id;
+    @JsonProperty("isFinished")
     private boolean isFinished;
     @Size(min = 9, max = 9, message= "Please provide a Grid with 9 characters.")
     private String grid;
@@ -40,7 +43,7 @@ public class GameManipulationRequest {
     }
 
     public void setFinished(boolean finished) {
-        isFinished = finished;
+        this.isFinished = finished;
     }
 
     public String getGrid() {
