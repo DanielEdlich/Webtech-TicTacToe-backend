@@ -38,4 +38,11 @@ public class GameResponseHandler {
 
         return new ResponseEntity<>(list, status);
     }
+
+    public static ResponseEntity<Object> id(HttpStatus status, long id){
+//        Map<String, Object> map = new LinkedHashMap<>();
+//        map.put("id", id);
+//
+        return new ResponseEntity<>(Map.of("id", id), status);
+    }
 }

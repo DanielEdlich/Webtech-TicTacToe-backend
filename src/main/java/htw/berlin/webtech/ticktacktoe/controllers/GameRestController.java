@@ -31,10 +31,11 @@ public class GameRestController {
     }
 
     @PostMapping(path = "/api/v1/games")
-    public ResponseEntity<Long> createGame(@RequestBody @Valid GameManipulationRequest request) throws URISyntaxException {
+    public ResponseEntity<Object> createGame(@RequestBody @Valid GameManipulationRequest request) throws URISyntaxException {
         var game = service.create(request);
         URI uri = new URI("/api/v1/games/" + game.getId());
-        return ResponseEntity.created(uri).body(game.getId());
+        return GameResponseHandler.id(HttpStatus.CREATED, game.getId());
+//        return ResponseEntity.created(uri).body(game.getId());
     }
 
     @PutMapping(path = "/api/v1/games/{id}")
