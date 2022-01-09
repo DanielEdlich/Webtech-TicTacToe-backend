@@ -1,4 +1,4 @@
-# Webtech-TicTackToe
+# Webtech-TicTacToe
 
 Mitglieder: Daniel Edlich, Tobias Armbruster
 
