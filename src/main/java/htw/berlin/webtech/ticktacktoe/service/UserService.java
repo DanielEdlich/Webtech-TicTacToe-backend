@@ -65,7 +65,9 @@ public class UserService {
         if(userEntityOptional.isEmpty()){return null;}
 
         var userEntity = userEntityOptional.get();
-        userEntity.setName(request.getName());
+        if (request.getName() != null) {
+            userEntity.setName(request.getName());
+        }
         userEntity.setHighscore(request.getHighscore());
         userEntity = userRepository.save(userEntity);
         return transformUserEntity(userEntity);
